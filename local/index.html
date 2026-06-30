@@ -20,11 +20,16 @@
       <span><strong>Correu8</strong> <em>Local</em></span>
     </a>
     <nav class="nav" aria-label="Principal">
-      <a href="#espai">Detalls</a>
-      <a href="#galeria">Galeria</a>
-      <a href="#ubicacio">Ubicació</a>
-      <a class="nav-button" href="#contacte">Contacte</a>
-      <span class="lang">CA⌄</span>
+      <a href="#espai" data-i18n="nav_details">Detalls</a>
+      <a href="#galeria" data-i18n="nav_gallery">Galeria</a>
+      <a href="#ubicacio" data-i18n="nav_location">Ubicació</a>
+      <a class="nav-button" href="#contacte" data-i18n="nav_contact">Contacte</a>
+      <div class="lang-switcher">
+        <button type="button" data-lang="ca">CA</button>
+        <button type="button" data-lang="es">ES</button>
+        <button type="button" data-lang="en">EN</button>
+        <button type="button" data-lang="pl">PL</button>
+      </div>
     </nav>
   </header>
 
@@ -38,23 +43,44 @@
         </div>
         <div class="hero-content">
           <div>
-            <h1>Es lloga<br><em>local.</em></h1>
+            <h1 data-i18n-html="hero_title">Es lloga<br><em>local.</em></h1>
           </div>
-          <div class="hero-copy">
-            <p>Local comercial a peu de carrer.<br>Lluminós, diàfan i llest per a ús.</p>
-            <p class="idea-title">El vostre proper...</p>
-            <ul>
-              <li>Traster?</li>
-              <li>Oficina remota?</li>
-              <li>Gimnàs privat?</li>
-              <li>O una altra idea?</li>
-            </ul>
-            <p>Consulteu els detalls o poseu-vos en contacte ara.</p>
-          </div>
+<div class="hero-copy">
+
+  <p data-i18n-html="hero_intro">
+    Local comercial a peu de carrer.<br>
+    Lluminós, diàfan i llest per a ús.
+  </p>
+
+  <p class="idea-title" data-i18n="hero_idea">
+    El vostre proper...
+  </p>
+
+  <ul>
+    <li data-i18n="hero_item_1">Traster?</li>
+    <li data-i18n="hero_item_2">Oficina remota?</li>
+    <li data-i18n="hero_item_3">Gimnàs privat?</li>
+    <li data-i18n="hero_item_4">O una altra idea?</li>
+  </ul>
+
+  <p data-i18n="hero_cta">
+    Consulteu els detalls o poseu-vos en contacte ara.
+  </p>
+
+</div>
         </div>
         <div class="hero-actions">
-          <a class="btn btn-dark" href="#contacte">Contacta ara →</a>
-          <a class="btn btn-outline" href="#espai">Veure detalls</a>
+<a class="btn btn-dark"
+   href="#contacte"
+   data-i18n="button_contact">
+   Contacta ara →
+</a>
+
+<a class="btn btn-outline"
+   href="#espai"
+   data-i18n="button_details">
+   Veure detalls
+</a>
         </div>
       </div>
     </section>
@@ -275,6 +301,110 @@ form.addEventListener("submit", async function (event) {
     button.textContent = originalButtonText;
   }
 });
+</script>
+<script>
+const translations = {
+  ca: {
+    nav_details: "Detalls",
+    nav_gallery: "Galeria",
+    nav_location: "Ubicació",
+    nav_contact: "Contacte",
+    hero_title: "Es lloga<br><em>local.</em>",
+    hero_intro: "Local comercial a peu de carrer.<br>Lluminós, diàfan i llest per a ús.",
+    hero_idea: "El vostre proper...",
+    hero_item_1: "Traster?",
+    hero_item_2: "Oficina remota?",
+    hero_item_3: "Gimnàs privat?",
+    hero_item_4: "O una altra idea?",
+    hero_cta: "Consulteu els detalls o poseu-vos en contacte ara.",
+    button_contact: "Contacta ara →",
+    button_details: "Veure detalls"
+  },
+
+  es: {
+    nav_details: "Detalles",
+    nav_gallery: "Galería",
+    nav_location: "Ubicación",
+    nav_contact: "Contacto",
+    hero_title: "Se alquila<br><em>local.</em>",
+    hero_intro: "Local comercial a pie de calle.<br>Luminoso, diáfano y listo para usar.",
+    hero_idea: "¿Tu próximo...?",
+    hero_item_1: "¿Trastero?",
+    hero_item_2: "¿Oficina remota?",
+    hero_item_3: "¿Gimnasio privado?",
+    hero_item_4: "¿O una idea diferente?",
+    hero_cta: "Consulta los detalles o ponte en contacto ahora.",
+    button_contact: "Contactar ahora →",
+    button_details: "Ver detalles"
+  },
+
+  en: {
+    nav_details: "Details",
+    nav_gallery: "Gallery",
+    nav_location: "Location",
+    nav_contact: "Contact",
+    hero_title: "Commercial<br><em>space.</em>",
+    hero_intro: "Street-level commercial space.<br>Bright, open and ready to use.",
+    hero_idea: "Your next...",
+    hero_item_1: "Storage space?",
+    hero_item_2: "Remote office?",
+    hero_item_3: "Private gym?",
+    hero_item_4: "Or another idea?",
+    hero_cta: "Check the details or get in touch now.",
+    button_contact: "Contact now →",
+    button_details: "View details"
+  },
+
+  pl: {
+    nav_details: "Szczegóły",
+    nav_gallery: "Galeria",
+    nav_location: "Lokalizacja",
+    nav_contact: "Kontakt",
+    hero_title: "Lokal<br><em>do wynajęcia.</em>",
+    hero_intro: "Lokal użytkowy z wejściem z ulicy.<br>Jasny, otwarty i gotowy do użycia.",
+    hero_idea: "Twój następny...",
+    hero_item_1: "Magazyn?",
+    hero_item_2: "Biuro zdalne?",
+    hero_item_3: "Prywatna siłownia?",
+    hero_item_4: "Albo inny pomysł?",
+    hero_cta: "Sprawdź szczegóły albo skontaktuj się teraz.",
+    button_contact: "Skontaktuj się →",
+    button_details: "Zobacz szczegóły"
+  }
+};
+
+function setLanguage(lang) {
+  const selected = translations[lang] ? lang : "ca";
+
+  document.querySelectorAll("[data-i18n]").forEach(el => {
+    const key = el.dataset.i18n;
+    if (translations[selected][key]) {
+      el.textContent = translations[selected][key];
+    }
+  });
+
+  document.querySelectorAll("[data-i18n-html]").forEach(el => {
+    const key = el.dataset.i18nHtml;
+    if (translations[selected][key]) {
+      el.innerHTML = translations[selected][key];
+    }
+  });
+
+  document.querySelectorAll(".lang-switcher button").forEach(button => {
+    button.classList.toggle("active", button.dataset.lang === selected);
+  });
+
+  document.documentElement.lang = selected;
+  localStorage.setItem("correu8_lang", selected);
+}
+
+document.querySelectorAll(".lang-switcher button").forEach(button => {
+  button.addEventListener("click", () => setLanguage(button.dataset.lang));
+});
+
+const savedLang = localStorage.getItem("correu8_lang");
+const browserLang = navigator.language.slice(0, 2);
+setLanguage(savedLang || (translations[browserLang] ? browserLang : "ca"));
 </script>
 </body>
 </html>
