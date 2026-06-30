@@ -226,10 +226,17 @@
 const form = document.getElementById("contact-form");
 const successMessage = document.getElementById("success-message");
 
+let isSubmitting = false;
+
 form.addEventListener("submit", async function (event) {
   event.preventDefault();
 
+  if (isSubmitting) return;
+  isSubmitting = true;
+
   const button = form.querySelector("button[type='submit']");
+  const originalButtonText = button.textContent;
+
   button.disabled = true;
   button.textContent = "Enviant...";
 
@@ -247,20 +254,25 @@ form.addEventListener("submit", async function (event) {
     if (response.ok) {
       form.reset();
       successMessage.style.display = "block";
+
       successMessage.scrollIntoView({
         behavior: "smooth",
         block: "center"
       });
-      button.textContent = "Enviat ✓";
+
+      button.textContent = "Consulta enviada ✓";
+      button.disabled = true;
     } else {
       alert("Hi ha hagut un problema. Torna-ho a provar, si us plau.");
+      isSubmitting = false;
       button.disabled = false;
-      button.textContent = "Enviar consulta →";
+      button.textContent = originalButtonText;
     }
   } catch (error) {
     alert("Hi ha hagut un problema de connexió. Torna-ho a provar.");
+    isSubmitting = false;
     button.disabled = false;
-    button.textContent = "Enviar consulta →";
+    button.textContent = originalButtonText;
   }
 });
 </script>
