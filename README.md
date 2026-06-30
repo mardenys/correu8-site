@@ -1,10 +1,16 @@
-# Correu8 static website
+# Correu8 Local
 
-Simple static HTML/CSS landing page. Upload the folder to Cloudflare Pages, Netlify, Vercel, GitHub Pages, or any static hosting.
+Static website for `correu8.cat/local`.
 
-To edit:
-- `index.html` contains the text and sections.
-- `styles.css` contains the design.
-- Replace images in `/assets` with final photos/map/plan using the same filenames.
+## Deploy on Cloudflare
+Upload all files in this folder to your GitHub repo. Cloudflare deploy settings:
 
-Contact button currently uses `mailto:hello@correu8.cat`. Replace with your email or Formspree endpoint later.
+- Framework: Static
+- Build command: empty
+- Output directory: `.`
+
+## Contact form
+Replace `https://formspree.io/f/YOUR_FORM_ID` in `local/index.html` with your real Formspree endpoint.
+
+## Analytics
+Add Google Analytics / Microsoft Clarity snippets before `</head>` in `local/index.html`.
