@@ -316,6 +316,10 @@ form.addEventListener("submit", async function (event) {
 <script>
 const translations = {
   ca: {
+    meta_title: "Correu8 Local — Local comercial en lloguer",
+    meta_description: "Local comercial a peu de carrer en lloguer al centre de Vilanova i la Geltrú. Lluminós, diàfan i llest per a ús.",
+    meta_og_title: "Correu8 Local — Es lloga local",
+    meta_og_description: "Local comercial a peu de carrer al cor de Vilanova i la Geltrú.",
     nav_details: "Detalls",
     nav_gallery: "Galeria",
     nav_location: "Ubicació",
@@ -411,6 +415,10 @@ const translations = {
   },
 
   es: {
+    meta_title: "Correu8 Local — Local comercial en alquiler",
+    meta_description: "Local comercial a pie de calle en alquiler en el centro de Vilanova i la Geltrú. Luminoso, diáfano y listo para usar.",
+    meta_og_title: "Correu8 Local — Se alquila local",
+    meta_og_description: "Local comercial a pie de calle en el corazón de Vilanova i la Geltrú.",
     nav_details: "Detalles",
     nav_gallery: "Galería",
     nav_location: "Ubicación",
@@ -506,6 +514,10 @@ const translations = {
   },
 
   en: {
+    meta_title: "Correu8 Local — Commercial space for rent",
+    meta_description: "Street-level commercial space for rent in central Vilanova i la Geltrú. Bright, open and ready to use.",
+    meta_og_title: "Correu8 Local — Commercial space for rent",
+    meta_og_description: "Street-level commercial space in the heart of Vilanova i la Geltrú.",
     nav_details: "Details",
     nav_gallery: "Gallery",
     nav_location: "Location",
@@ -601,6 +613,10 @@ const translations = {
   },
 
   pl: {
+    meta_title: "Correu8 Local — Lokal użytkowy do wynajęcia",
+    meta_description: "Lokal użytkowy z wejściem z ulicy do wynajęcia w centrum Vilanova i la Geltrú. Jasny, otwarty i gotowy do użycia.",
+    meta_og_title: "Correu8 Local — Lokal do wynajęcia",
+    meta_og_description: "Lokal użytkowy z wejściem z ulicy w sercu Vilanova i la Geltrú.",
     nav_details: "Szczegóły",
     nav_gallery: "Galeria",
     nav_location: "Lokalizacja",
@@ -744,6 +760,10 @@ function setLanguage(lang) {
   });
 
   document.documentElement.lang = selected;
+  document.title = translations[selected].meta_title;
+  document.querySelector('meta[name="description"]').content = translations[selected].meta_description;
+  document.querySelector('meta[property="og:title"]').content = translations[selected].meta_og_title;
+  document.querySelector('meta[property="og:description"]').content = translations[selected].meta_og_description;
   localStorage.setItem("correu8_lang", selected);
 }
 
