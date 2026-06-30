@@ -153,31 +153,63 @@
         </ul>
       </div>
 
-      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
-        <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off" />
-        <input type="hidden" name="_subject" value="Nova consulta — Correu8 Local" />
-        <div class="form-block">
-          <h3><span>01</span> Les teves dades</h3>
-          <div class="form-row">
-            <label>Nom i cognoms *<input required name="nom" type="text" /></label>
-            <label>Telèfon *<input required name="telefon" type="tel" /></label>
-          </div>
-          <label>Correu electrònic *<input required name="email" type="email" /></label>
-        </div>
-        <div class="form-block">
-          <h3><span>02</span> El teu projecte</h3>
-          <label>Quin ús li voldries donar a l'espai? *<textarea required name="us" placeholder="Ex. traster, oficina remota, gimnàs privat..."></textarea></label>
-          <div class="form-row">
-            <label>Durant quant temps? *<input required name="durada" placeholder="Ex. 1 any" /></label>
-            <label>Pressupost mensual *<input required name="pressupost" placeholder="Ex. 200 € / mes" /></label>
-          </div>
-          <label>Quan t'agradaria començar? *<input required name="inici" placeholder="Ex. al setembre" /></label>
-          <label>Tens alguna pregunta o comentari?<textarea name="comentari"></textarea></label>
-        </div>
-        <label class="checkbox"><input required type="checkbox" name="privacitat" value="acceptada" /> Accepto la política de privacitat i el tractament de les meves dades per respondre a aquesta consulta.</label>
-        <button class="btn btn-yellow" type="submit">Enviar consulta →</button>
-        <p class="small-note">No t'enviarem cap correu comercial. Només una resposta a la teva consulta.</p>
-      </form>
+<form class="contact-form" action="https://formspree.io/f/xgojlalw" method="POST">
+  <input type="hidden" name="_subject" value="Nova consulta — Correu8 Local" />
+  <input type="hidden" name="_next" value="https://correu8.cat/local/?sent=1" />
+  <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off" />
+  <div class="form-block">
+    <h3><span>01</span> Les teves dades</h3>
+    <div class="form-row">
+      <label>
+        Nom i cognoms *
+        <input required name="nom" type="text" autocomplete="name" />
+      </label>
+      <label>
+        Telèfon *
+        <input required name="telefon" type="tel" autocomplete="tel" />
+      </label>
+    </div>
+    <label>
+      Correu electrònic *
+      <input required name="email" type="email" autocomplete="email" />
+    </label>
+  </div>
+  <div class="form-block">
+    <h3><span>02</span> El teu projecte</h3>
+    <label>
+      Quin ús li voldries donar a l'espai? *
+      <textarea required name="us" placeholder="Ex. traster, oficina remota, gimnàs privat..."></textarea>
+    </label>
+    <div class="form-row">
+      <label>
+        Durant quant temps? *
+        <input required name="durada" placeholder="Ex. 1 any" />
+      </label>
+      <label>
+        Pressupost mensual *
+        <input required name="pressupost" placeholder="Ex. 200 € / mes" />
+      </label>
+    </div>
+    <label>
+      Quan t'agradaria començar? *
+      <input required name="inici" placeholder="Ex. al setembre" />
+    </label>
+    <label>
+      Tens alguna pregunta o comentari?
+      <textarea name="comentari"></textarea>
+    </label>
+  </div>
+  <label class="checkbox">
+    <input required type="checkbox" name="privacitat" value="acceptada" />
+    Accepto la política de privacitat i el tractament de les meves dades per respondre a aquesta consulta.
+  </label>
+  <button class="btn btn-yellow" type="submit">
+    Enviar consulta →
+  </button>
+  <p class="small-note">
+    No t'enviarem cap correu comercial. Només una resposta a la teva consulta.
+  </p>
+</form>
     </section>
   </main>
 
