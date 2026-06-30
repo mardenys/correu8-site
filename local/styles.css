@@ -66,3 +66,323 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}.site-hea
   background: var(--black);
   color: #fff;
 }
+
+/* =====================================================
+   RESPONSIVE FIXES — Correu8 Local
+   Keep this block at the very end of the file so it overrides earlier rules.
+===================================================== */
+
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+/* Avoid hidden anchor targets under sticky header */
+#espai,
+#galeria,
+#ubicacio,
+#contacte {
+  scroll-margin-top: 90px;
+}
+
+/* Language switcher */
+.lang {
+  display: none;
+}
+
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.lang-switcher button {
+  border: 0;
+  background: transparent;
+  padding: 7px 10px;
+  border-radius: 999px;
+  font-weight: 800;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.lang-switcher button.active {
+  background: var(--black);
+  color: #fff;
+}
+
+/* Gallery image layout */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+
+.photo {
+  border-radius: 18px;
+  overflow: hidden;
+  background: #f6f3ee;
+  aspect-ratio: 4 / 3;
+  min-height: 0;
+}
+
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Form helpers */
+.honeypot {
+  display: none !important;
+}
+
+.success-message {
+  display: none;
+  margin-bottom: 24px;
+  padding: 18px 22px;
+  background: #e9f8ee;
+  border: 1px solid #7ac98d;
+  border-radius: 16px;
+  color: #215732;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+button:disabled,
+.btn:disabled {
+  opacity: 0.75;
+  cursor: not-allowed;
+}
+
+/* Tablet */
+@media (max-width: 900px) {
+  .site-header {
+    height: auto;
+    min-height: 66px;
+    padding: 14px 18px;
+    gap: 14px;
+  }
+
+  .brand {
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .nav {
+    gap: 10px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+
+  .nav a:not(.nav-button) {
+    display: none;
+  }
+
+  .hero-inner {
+    padding: 58px 20px 74px;
+  }
+
+  .hero-content,
+  .two-col,
+  .plan-section,
+  .contact-section {
+    grid-template-columns: 1fr;
+    gap: 34px;
+  }
+
+  .hero h1 {
+    font-size: clamp(56px, 15vw, 82px);
+    line-height: 0.88;
+    letter-spacing: -0.065em;
+    max-width: 7ch;
+    overflow-wrap: break-word;
+  }
+
+  .hero-copy {
+    font-size: 18px;
+    max-width: 100%;
+  }
+
+  .hero-actions {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .facts {
+    grid-template-columns: 1fr;
+  }
+
+  .fact {
+    border-right: 0;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .section {
+    padding: 64px 20px;
+  }
+
+  .gallery {
+    grid-template-columns: 1fr;
+  }
+
+  .faq-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form {
+    padding: 28px;
+    box-shadow: 7px 7px 0 #000;
+  }
+
+  .footer {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .image-card {
+    box-shadow: 7px 7px 0 #000;
+  }
+}
+
+/* Mobile */
+@media (max-width: 620px) {
+  .site-header {
+    position: sticky;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 12px 14px;
+    gap: 12px;
+  }
+
+  .brand {
+    font-size: 19px;
+    max-width: 100%;
+  }
+
+  .brand em {
+    display: none;
+  }
+
+  .nav {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .nav-button {
+    padding: 9px 16px;
+    font-size: 14px;
+  }
+
+  .lang-switcher {
+    padding: 3px;
+    gap: 2px;
+  }
+
+  .lang-switcher button {
+    padding: 8px 9px;
+    font-size: 14px;
+  }
+
+  .hero-inner {
+    padding: 46px 18px 60px;
+  }
+
+  .hero-meta {
+    font-size: 10px;
+    gap: 10px;
+    letter-spacing: 0.16em;
+    margin-bottom: 30px;
+  }
+
+  .hero-meta i {
+    min-width: 42px;
+  }
+
+  .hero-content {
+    display: block;
+  }
+
+  .hero h1 {
+    font-size: clamp(52px, 18vw, 68px);
+    line-height: 0.92;
+    letter-spacing: -0.06em;
+    max-width: 7ch;
+  }
+
+  .hero-copy {
+    margin-top: 34px;
+    font-size: 18px;
+  }
+
+  .hero-copy ul {
+    margin-left: 18px;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-top: 34px;
+  }
+
+  .hero-actions .btn,
+  .btn {
+    width: 100%;
+    padding: 14px 20px;
+    text-align: center;
+  }
+
+  .section h2,
+  .contact-copy h2 {
+    font-size: 38px;
+  }
+
+  .footer {
+    grid-template-columns: 1fr;
+  }
+
+  .map-card {
+    border-radius: 18px;
+  }
+
+  .plan-card {
+    padding: 18px;
+  }
+
+  .photo {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .brand {
+    font-size: 17px;
+  }
+
+  .nav-button {
+    padding: 8px 13px;
+  }
+
+  .lang-switcher button {
+    padding: 7px 7px;
+    font-size: 13px;
+  }
+
+  .hero h1 {
+    font-size: 48px;
+  }
+}
