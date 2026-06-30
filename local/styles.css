@@ -432,3 +432,147 @@ button:disabled,
   line-height:1.35;
   font-weight:700;
 }
+
+/* ===== Gallery lightbox ===== */
+.photo {
+  cursor: zoom-in;
+}
+
+.photo-button {
+  width: 100%;
+  height: 100%;
+  display: block;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+
+.photo-button:focus-visible {
+  outline: 4px solid var(--yellow);
+  outline-offset: -6px;
+}
+
+body.lightbox-open {
+  overflow: hidden;
+}
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  grid-template-columns: minmax(54px, 1fr) minmax(0, 1100px) minmax(54px, 1fr);
+  grid-template-rows: 64px minmax(0, 1fr) 64px;
+  align-items: center;
+  justify-items: center;
+  gap: 18px;
+  padding: 22px;
+  background: rgba(0, 0, 0, 0.86);
+}
+
+.lightbox[hidden] {
+  display: none;
+}
+
+.lightbox-frame {
+  grid-column: 2;
+  grid-row: 2;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+  display: grid;
+  gap: 14px;
+  justify-items: center;
+}
+
+.lightbox-frame img {
+  max-width: 100%;
+  max-height: calc(100vh - 170px);
+  border: 3px solid #000;
+  border-radius: 18px;
+  object-fit: contain;
+  box-shadow: 10px 10px 0 #000;
+  background: #fff;
+}
+
+#lightbox-caption {
+  max-width: min(760px, 90vw);
+  color: #fff;
+  font-weight: 800;
+  text-align: center;
+}
+
+.lightbox-button {
+  width: 48px;
+  height: 48px;
+  border: 3px solid #000;
+  border-radius: 999px;
+  background: var(--yellow);
+  color: #000;
+  font: 900 30px/1 var(--sans);
+  display: inline-grid;
+  place-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #000;
+}
+
+.lightbox-button:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 4px;
+}
+
+.lightbox-close {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.lightbox-prev {
+  grid-column: 1;
+  grid-row: 2;
+}
+
+.lightbox-next {
+  grid-column: 3;
+  grid-row: 2;
+}
+
+@media (max-width: 640px) {
+  .lightbox {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 56px minmax(0, 1fr) 56px;
+    gap: 12px;
+    padding: 14px;
+  }
+
+  .lightbox-frame {
+    grid-column: 1 / -1;
+  }
+
+  .lightbox-frame img {
+    max-height: calc(100vh - 170px);
+    border-radius: 14px;
+    box-shadow: 6px 6px 0 #000;
+  }
+
+  .lightbox-button {
+    width: 44px;
+    height: 44px;
+    font-size: 26px;
+  }
+
+  .lightbox-close {
+    grid-column: 3;
+    justify-self: end;
+  }
+
+  .lightbox-prev {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+  .lightbox-next {
+    grid-column: 3;
+    grid-row: 3;
+  }
+}

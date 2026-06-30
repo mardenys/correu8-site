@@ -136,23 +136,33 @@
 
   <div class="gallery">
     <div class="photo">
-      <img src="assets/main-room.jpg" loading="lazy" decoding="async" alt="Sala principal del local" data-i18n="gallery_main_room_alt" data-i18n-attr="alt">
+      <button class="photo-button" type="button">
+        <img src="assets/main-room.jpg" loading="lazy" decoding="async" alt="Sala principal del local" data-i18n="gallery_main_room_alt" data-i18n-attr="alt">
+      </button>
     </div>
 
     <div class="photo">
-      <img src="assets/rear-room.jpg" loading="lazy" decoding="async" alt="Sala del darrere del local" data-i18n="gallery_rear_room_alt" data-i18n-attr="alt">
+      <button class="photo-button" type="button">
+        <img src="assets/rear-room.jpg" loading="lazy" decoding="async" alt="Sala del darrere del local" data-i18n="gallery_rear_room_alt" data-i18n-attr="alt">
+      </button>
     </div>
 
     <div class="photo">
-      <img src="assets/bathroom.jpg" loading="lazy" decoding="async" alt="Bany del local" data-i18n="gallery_bathroom_alt" data-i18n-attr="alt">
+      <button class="photo-button" type="button">
+        <img src="assets/bathroom.jpg" loading="lazy" decoding="async" alt="Bany del local" data-i18n="gallery_bathroom_alt" data-i18n-attr="alt">
+      </button>
     </div>
 
     <div class="photo">
-      <img src="assets/entrance-open.jpg" loading="lazy" decoding="async" alt="Entrada oberta del local" data-i18n="gallery_entrance_alt" data-i18n-attr="alt">
+      <button class="photo-button" type="button">
+        <img src="assets/entrance-open.jpg" loading="lazy" decoding="async" alt="Entrada oberta del local" data-i18n="gallery_entrance_alt" data-i18n-attr="alt">
+      </button>
     </div>
 
     <div class="photo">
-      <img src="assets/facade.jpg" loading="lazy" decoding="async" alt="Façana del local" data-i18n="gallery_facade_alt" data-i18n-attr="alt">
+      <button class="photo-button" type="button">
+        <img src="assets/facade.jpg" loading="lazy" decoding="async" alt="Façana del local" data-i18n="gallery_facade_alt" data-i18n-attr="alt">
+      </button>
     </div>
   </div>
 </section>
@@ -269,6 +279,111 @@
     <div><strong data-i18n="footer_navigation_title">Navegació</strong><p><a href="#top" data-i18n="footer_navigation_home">Inici</a><br><a href="#contacte" data-i18n="footer_navigation_contact">Contacte</a></p></div>
     <div><strong data-i18n="footer_legal_title">Legal</strong><p><a href="#" data-i18n="footer_privacy">Política de privacitat</a></p></div>
   </footer>
+<div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Gallery image" aria-describedby="lightbox-caption" hidden>
+  <button class="lightbox-button lightbox-close" type="button" aria-label="Close">×</button>
+  <button class="lightbox-button lightbox-prev" type="button" aria-label="Previous image">‹</button>
+  <figure class="lightbox-frame">
+    <img id="lightbox-image" alt="" />
+    <figcaption id="lightbox-caption"></figcaption>
+  </figure>
+  <button class="lightbox-button lightbox-next" type="button" aria-label="Next image">›</button>
+</div>
+<script>
+const gallery = document.querySelector(".gallery");
+const lightboxButtons = Array.from(document.querySelectorAll(".gallery .photo-button"));
+const lightbox = document.getElementById("lightbox");
+const lightboxImage = document.getElementById("lightbox-image");
+const lightboxCaption = document.getElementById("lightbox-caption");
+const lightboxClose = document.querySelector(".lightbox-close");
+const lightboxPrev = document.querySelector(".lightbox-prev");
+const lightboxNext = document.querySelector(".lightbox-next");
+const hasLightbox = Boolean(gallery && lightbox && lightboxImage && lightboxCaption && lightboxClose && lightboxPrev && lightboxNext && lightboxButtons.length);
+
+let currentLightboxIndex = 0;
+let lastFocusedElement = null;
+
+function getGalleryImage(index) {
+  const button = lightboxButtons[index];
+  return button ? button.querySelector("img") : null;
+}
+
+function showImage(index) {
+  if (!hasLightbox) return;
+
+  currentLightboxIndex = (index + lightboxButtons.length) % lightboxButtons.length;
+  const image = getGalleryImage(currentLightboxIndex);
+  if (!image) return;
+
+  lightboxImage.src = image.currentSrc || image.src;
+  lightboxImage.alt = image.alt;
+  lightboxCaption.textContent = image.alt;
+}
+
+function openLightbox(index) {
+  if (!hasLightbox) return;
+
+  lastFocusedElement = document.activeElement;
+  showImage(index);
+  lightbox.hidden = false;
+  document.body.classList.add("lightbox-open");
+  lightboxClose.focus();
+}
+
+function closeLightbox() {
+  if (!hasLightbox) return;
+
+  lightbox.hidden = true;
+  document.body.classList.remove("lightbox-open");
+  lightboxImage.removeAttribute("src");
+
+  if (lastFocusedElement) {
+    lastFocusedElement.focus();
+  }
+}
+
+if (hasLightbox) {
+  gallery.addEventListener("click", event => {
+    if (!(event.target instanceof Element)) return;
+
+    const button = event.target.closest(".photo-button");
+    if (!button || !gallery.contains(button)) return;
+
+    const index = lightboxButtons.indexOf(button);
+    if (index === -1) return;
+
+    openLightbox(index);
+  });
+
+  lightboxClose.addEventListener("click", closeLightbox);
+  lightboxPrev.addEventListener("click", () => showImage(currentLightboxIndex - 1));
+  lightboxNext.addEventListener("click", () => showImage(currentLightboxIndex + 1));
+
+  lightbox.addEventListener("click", event => {
+    if (event.target === lightbox) {
+      closeLightbox();
+    }
+  });
+}
+
+document.addEventListener("keydown", event => {
+  if (!hasLightbox || lightbox.hidden) return;
+
+  if (event.key === "Escape") {
+    event.preventDefault();
+    closeLightbox();
+  }
+
+  if (event.key === "ArrowLeft") {
+    event.preventDefault();
+    showImage(currentLightboxIndex - 1);
+  }
+
+  if (event.key === "ArrowRight") {
+    event.preventDefault();
+    showImage(currentLightboxIndex + 1);
+  }
+});
+</script>
 <script>
 const form = document.getElementById("contact-form");
 const successMessage = document.getElementById("success-message");
