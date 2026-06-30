@@ -30,3 +30,17 @@ a{color:inherit;text-decoration:none} img{max-width:100%;display:block}.site-hea
     grid-template-columns: 1fr;
   }
 }
+.honeypot {
+  display: none;
+}
+.success-message {
+    display: none;
+    margin-bottom: 24px;
+    padding: 18px 22px;
+    background: #e9f8ee;
+    border: 1px solid #7ac98d;
+    border-radius: 16px;
+    color: #215732;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}

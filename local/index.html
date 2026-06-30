@@ -147,12 +147,16 @@
         <h2>Parlem del teu projecte.</h2>
         <p>Omple el formulari i et respondrem amb tota la informació, fotos addicionals i opcions de visita.</p>
         <ul class="trust-list">
-          <li><span>⏱</span> Et respondrem tan aviat com sigui possible</li>
+          <li><span>⏱</span> Ens posarem en contacte amb tu ben aviat</li>
           <li><span>🔒</span> Les teves dades no es comparteixen</li>
           <li><span>🤝</span> Sense compromís</li>
         </ul>
       </div>
-
+<div id="success-message" class="success-message">
+  <strong>✅ Gràcies!</strong><br>
+  Hem rebut la teva consulta correctament.<br>
+  Et respondrem tan aviat com sigui possible.
+</div>
 <form class="contact-form" action="https://formspree.io/f/xgojlalw" method="POST">
   <input type="hidden" name="_subject" value="Nova consulta — Correu8 Local" />
   <input type="hidden" name="_next" value="https://correu8.cat/local/?sent=1" />
@@ -219,5 +223,22 @@
     <div><strong>Navegació</strong><p><a href="#top">Inici</a><br><a href="#contacte">Contacte</a></p></div>
     <div><strong>Legal</strong><p><a href="#">Política de privacitat</a></p></div>
   </footer>
+<script>
+const params = new URLSearchParams(window.location.search);
+
+if (params.get("sent") === "1") {
+
+    document.getElementById("success-message").style.display = "block";
+
+    document
+        .getElementById("success-message")
+        .scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    history.replaceState({}, "", window.location.pathname);
+}
+</script>
 </body>
 </html>
