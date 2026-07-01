@@ -576,3 +576,10 @@ body.lightbox-open {
     grid-row: 3;
   }
 }
+
+
+/* Bathroom photo orientation fix */
+.rotate-bathroom{
+  transform: rotate(90deg) scale(1.34);
+  transform-origin:center;
+}
