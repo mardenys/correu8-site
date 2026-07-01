@@ -253,7 +253,9 @@
       <h2 data-i18n="location_title">Vilanova i la Geltrú.</h2>
       <p class="subhead" data-i18n="location_subhead">A pocs passos de la plaça de Miró de Montgrós i la Plaça de la Vila.</p>
       <figure class="image-card map-card">
-        <img src="./assets/map.png" loading="lazy" decoding="async" alt="Mapa de situació del local al carrer del Correu" data-i18n="location_map_alt" data-i18n-attr="alt" />
+        <button class="map-lightbox-button" type="button">
+          <img src="./assets/map.png" loading="lazy" decoding="async" alt="Mapa de situació del local al carrer del Correu" data-i18n="location_map_alt" data-i18n-attr="alt" />
+        </button>
       </figure>
     </section>
 
@@ -378,18 +380,30 @@ const lightboxCaption = document.getElementById("lightbox-caption");
 const lightboxClose = document.querySelector(".lightbox-close");
 const lightboxPrev = document.querySelector(".lightbox-prev");
 const lightboxNext = document.querySelector(".lightbox-next");
-const hasLightbox = Boolean(gallery && lightbox && lightboxImage && lightboxCaption && lightboxClose && lightboxPrev && lightboxNext && lightboxButtons.length);
+const mapLightboxButton = document.querySelector(".map-lightbox-button");
+const mobileMapQuery = window.matchMedia("(max-width: 768px)");
+const hasLightbox = Boolean(lightbox && lightboxImage && lightboxCaption && lightboxClose && lightboxPrev && lightboxNext);
+const hasGalleryLightbox = Boolean(hasLightbox && gallery && lightboxButtons.length);
+const hasMapLightbox = Boolean(hasLightbox && mapLightboxButton);
 
 let currentLightboxIndex = 0;
 let lastFocusedElement = null;
+let isMapLightbox = false;
 
 function getGalleryImage(index) {
   const button = lightboxButtons[index];
   return button ? button.querySelector("img") : null;
 }
 
-function showImage(index) {
+function setLightboxControlsHidden(hidden) {
   if (!hasLightbox) return;
+
+  lightboxPrev.hidden = hidden;
+  lightboxNext.hidden = hidden;
+}
+
+function showImage(index) {
+  if (!hasGalleryLightbox) return;
 
   currentLightboxIndex = (index + lightboxButtons.length) % lightboxButtons.length;
   const image = getGalleryImage(currentLightboxIndex);
@@ -402,10 +416,30 @@ function showImage(index) {
 }
 
 function openLightbox(index) {
-  if (!hasLightbox) return;
+  if (!hasGalleryLightbox) return;
 
+  isMapLightbox = false;
   lastFocusedElement = document.activeElement;
+  setLightboxControlsHidden(false);
   showImage(index);
+  lightbox.hidden = false;
+  document.body.classList.add("lightbox-open");
+  lightboxClose.focus();
+}
+
+function openMapLightbox() {
+  if (!hasMapLightbox || !mobileMapQuery.matches) return;
+
+  const image = mapLightboxButton.querySelector("img");
+  if (!image) return;
+
+  isMapLightbox = true;
+  lastFocusedElement = document.activeElement;
+  setLightboxControlsHidden(true);
+  lightboxImage.src = image.currentSrc || image.src;
+  lightboxImage.alt = image.alt;
+  lightboxImage.className = image.className;
+  lightboxCaption.textContent = image.alt;
   lightbox.hidden = false;
   document.body.classList.add("lightbox-open");
   lightboxClose.focus();
@@ -417,13 +451,15 @@ function closeLightbox() {
   lightbox.hidden = true;
   document.body.classList.remove("lightbox-open");
   lightboxImage.removeAttribute("src");
+  isMapLightbox = false;
+  setLightboxControlsHidden(false);
 
   if (lastFocusedElement) {
     lastFocusedElement.focus();
   }
 }
 
-if (hasLightbox) {
+if (hasGalleryLightbox) {
   gallery.addEventListener("click", event => {
     if (!(event.target instanceof Element)) return;
 
@@ -435,10 +471,24 @@ if (hasLightbox) {
 
     openLightbox(index);
   });
+}
 
+if (hasMapLightbox) {
+  mapLightboxButton.addEventListener("click", openMapLightbox);
+}
+
+if (hasLightbox) {
   lightboxClose.addEventListener("click", closeLightbox);
-  lightboxPrev.addEventListener("click", () => showImage(currentLightboxIndex - 1));
-  lightboxNext.addEventListener("click", () => showImage(currentLightboxIndex + 1));
+  lightboxPrev.addEventListener("click", () => {
+    if (!isMapLightbox) {
+      showImage(currentLightboxIndex - 1);
+    }
+  });
+  lightboxNext.addEventListener("click", () => {
+    if (!isMapLightbox) {
+      showImage(currentLightboxIndex + 1);
+    }
+  });
 
   lightbox.addEventListener("click", event => {
     if (event.target === lightbox) {
@@ -457,12 +507,16 @@ document.addEventListener("keydown", event => {
 
   if (event.key === "ArrowLeft") {
     event.preventDefault();
-    showImage(currentLightboxIndex - 1);
+    if (!isMapLightbox) {
+      showImage(currentLightboxIndex - 1);
+    }
   }
 
   if (event.key === "ArrowRight") {
     event.preventDefault();
-    showImage(currentLightboxIndex + 1);
+    if (!isMapLightbox) {
+      showImage(currentLightboxIndex + 1);
+    }
   }
 });
 </script>
