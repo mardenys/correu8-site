@@ -397,6 +397,7 @@ function showImage(index) {
 
   lightboxImage.src = image.currentSrc || image.src;
   lightboxImage.alt = image.alt;
+  lightboxImage.className = image.className;
   lightboxCaption.textContent = image.alt;
 }
 
