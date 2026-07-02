@@ -223,7 +223,7 @@
       <button class="photo-button" type="button">
         <picture>
           <source srcset="assets/bathroom.webp" type="image/webp">
-          <img class="rotate-bathroom" src="assets/bathroom.jpg" loading="lazy" decoding="async" alt="Bany del local" data-i18n="gallery_bathroom_alt" data-i18n-attr="alt">
+          <img src="assets/bathroom.jpg" loading="lazy" decoding="async" alt="Bany del local" data-i18n="gallery_bathroom_alt" data-i18n-attr="alt">
         </picture>
       </button>
     </div>
@@ -411,7 +411,6 @@ function showImage(index) {
 
   lightboxImage.src = image.currentSrc || image.src;
   lightboxImage.alt = image.alt;
-  lightboxImage.className = image.className;
   lightboxCaption.textContent = image.alt;
 }
 
@@ -438,7 +437,6 @@ function openMapLightbox() {
   setLightboxControlsHidden(true);
   lightboxImage.src = image.currentSrc || image.src;
   lightboxImage.alt = image.alt;
-  lightboxImage.className = image.className;
   lightboxCaption.textContent = image.alt;
   lightbox.hidden = false;
   document.body.classList.add("lightbox-open");

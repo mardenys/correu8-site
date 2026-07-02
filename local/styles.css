@@ -595,16 +595,3 @@ body.lightbox-open {
     cursor: zoom-in;
   }
 }
-
-
-/* Bathroom photo orientation fix */
-.rotate-bathroom{
-  transform: rotate(90deg) scale(1.34);
-  transform-origin:center;
-}
-#lightbox-image.rotate-bathroom {
-  transform: rotate(90deg);
-  max-width: 80vh;
-  max-height: 80vw;
-  object-fit: contain;
-}
