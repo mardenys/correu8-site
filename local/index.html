@@ -192,7 +192,9 @@
         </div>
       </div>
       <figure class="image-card plan-card">
-        <img src="./assets/plan.jpg" loading="lazy" decoding="async" alt="Plànol del local" data-i18n="plan_image_alt" data-i18n-attr="alt" />
+        <button class="plan-lightbox-button" type="button">
+          <img src="./assets/plan.jpg" loading="lazy" decoding="async" alt="Plànol del local" data-i18n="plan_image_alt" data-i18n-attr="alt" />
+        </button>
       </figure>
     </section>
 
@@ -380,15 +382,17 @@ const lightboxCaption = document.getElementById("lightbox-caption");
 const lightboxClose = document.querySelector(".lightbox-close");
 const lightboxPrev = document.querySelector(".lightbox-prev");
 const lightboxNext = document.querySelector(".lightbox-next");
+const planLightboxButton = document.querySelector(".plan-lightbox-button");
 const mapLightboxButton = document.querySelector(".map-lightbox-button");
 const mobileMapQuery = window.matchMedia("(max-width: 768px)");
 const hasLightbox = Boolean(lightbox && lightboxImage && lightboxCaption && lightboxClose && lightboxPrev && lightboxNext);
 const hasGalleryLightbox = Boolean(hasLightbox && gallery && lightboxButtons.length);
+const hasPlanLightbox = Boolean(hasLightbox && planLightboxButton);
 const hasMapLightbox = Boolean(hasLightbox && mapLightboxButton);
 
 let currentLightboxIndex = 0;
 let lastFocusedElement = null;
-let isMapLightbox = false;
+let isSingleImageLightbox = false;
 
 function getGalleryImage(index) {
   const button = lightboxButtons[index];
@@ -417,10 +421,27 @@ function showImage(index) {
 function openLightbox(index) {
   if (!hasGalleryLightbox) return;
 
-  isMapLightbox = false;
+  isSingleImageLightbox = false;
   lastFocusedElement = document.activeElement;
   setLightboxControlsHidden(false);
   showImage(index);
+  lightbox.hidden = false;
+  document.body.classList.add("lightbox-open");
+  lightboxClose.focus();
+}
+
+function openPlanLightbox() {
+  if (!hasPlanLightbox) return;
+
+  const image = planLightboxButton.querySelector("img");
+  if (!image) return;
+
+  isSingleImageLightbox = true;
+  lastFocusedElement = document.activeElement;
+  setLightboxControlsHidden(true);
+  lightboxImage.src = image.currentSrc || image.src;
+  lightboxImage.alt = image.alt;
+  lightboxCaption.textContent = image.alt;
   lightbox.hidden = false;
   document.body.classList.add("lightbox-open");
   lightboxClose.focus();
@@ -432,7 +453,7 @@ function openMapLightbox() {
   const image = mapLightboxButton.querySelector("img");
   if (!image) return;
 
-  isMapLightbox = true;
+  isSingleImageLightbox = true;
   lastFocusedElement = document.activeElement;
   setLightboxControlsHidden(true);
   lightboxImage.src = image.currentSrc || image.src;
@@ -449,7 +470,7 @@ function closeLightbox() {
   lightbox.hidden = true;
   document.body.classList.remove("lightbox-open");
   lightboxImage.removeAttribute("src");
-  isMapLightbox = false;
+  isSingleImageLightbox = false;
   setLightboxControlsHidden(false);
 
   if (lastFocusedElement) {
@@ -475,15 +496,19 @@ if (hasMapLightbox) {
   mapLightboxButton.addEventListener("click", openMapLightbox);
 }
 
+if (hasPlanLightbox) {
+  planLightboxButton.addEventListener("click", openPlanLightbox);
+}
+
 if (hasLightbox) {
   lightboxClose.addEventListener("click", closeLightbox);
   lightboxPrev.addEventListener("click", () => {
-    if (!isMapLightbox) {
+    if (!isSingleImageLightbox) {
       showImage(currentLightboxIndex - 1);
     }
   });
   lightboxNext.addEventListener("click", () => {
-    if (!isMapLightbox) {
+    if (!isSingleImageLightbox) {
       showImage(currentLightboxIndex + 1);
     }
   });
@@ -505,14 +530,14 @@ document.addEventListener("keydown", event => {
 
   if (event.key === "ArrowLeft") {
     event.preventDefault();
-    if (!isMapLightbox) {
+    if (!isSingleImageLightbox) {
       showImage(currentLightboxIndex - 1);
     }
   }
 
   if (event.key === "ArrowRight") {
     event.preventDefault();
-    if (!isMapLightbox) {
+    if (!isSingleImageLightbox) {
       showImage(currentLightboxIndex + 1);
     }
   }
